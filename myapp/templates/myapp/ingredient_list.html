@@ -1,0 +1,43 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+<table class="table borderless">
+    <thead class="border bottom font-weight-blod">
+
+        <tr>
+            <td>Ingredient Title</td>
+            <td>Ingredient Quantity</td>
+            <td>Ingredient Price</td>
+            <td>Ingredient Expir</td>
+            <td>
+                <a href="{% url 'myapp-form_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add new
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in ing_list %}
+        <tr>
+            <td>{{i.Ingredient_title}}</td>
+            <td>{{i.Ingredient_quantity}}</td>
+            <td>{{i.Ingredient_price}}</td>
+            <td>{{i.Ingredient_expir}}</td>
+            <td>
+                <a href="{% url 'myapp-form_update' i.id %}" class="btn text-secondary px-0">
+                    <i class="far fa-edit fa-lg"></i>
+                </a>
+                <form action="{% url 'myapp-delete' i.id %}" method="POST" class="d-inline">
+                    {% csrf_token %}
+                    <button class="btn" type="submit">
+                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock content %}
